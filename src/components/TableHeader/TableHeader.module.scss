@@ -1,0 +1,48 @@
+.tableHeader {
+  background: var(--color-surface);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.headerCell {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  border-bottom: 2px solid var(--color-border);
+  white-space: nowrap;
+}
+
+.headerContent {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &.sortable {
+    cursor: pointer;
+    background: none;
+    border: none;
+    color: var(--color-text-primary);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 0;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--color-primary);
+
+      .sortIconInactive {
+        color: var(--color-primary);
+      }
+    }
+  }
+}
+
+.sortIconActive {
+  color: var(--color-primary);
+}
+
+.sortIconInactive {
+  color: var(--color-text-secondary);
+}

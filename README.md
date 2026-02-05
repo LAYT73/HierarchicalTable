@@ -1,73 +1,178 @@
-# React + TypeScript + Vite
+# Иерархическая таблица
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+SPA-приложение на React для отображения иерархических данных с возможностью фильтрации и сортировки.
 
-Currently, two official plugins are available:
+## Особенности
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Иерархическая структура** - древовидное представление данных с возможностью раскрытия/сворачивания строк
+- **Фильтрация** - фильтрация по статусу (активные/неактивные)
+- **Сортировка** - сортировка по балансу и email в обе стороны
+- **Адаптивный дизайн** - корректное отображение на различных устройствах
+- **Современный UI** - чистый и интуитивный интерфейс
+- **TypeScript** - типизация всего кода
+- **Module SCSS** - изолированные стили для каждого компонента
 
-## React Compiler
+## Технологии
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 19.2** - библиотека для построения пользовательского интерфейса
+- **TypeScript 5.9** - типизированный JavaScript
+- **Vite 7.2** - сборщик и dev-сервер
+- **SCSS Modules** - модульные стили
+- **Lucide React** - иконки (chevron, arrows)
 
-## Expanding the ESLint configuration
+## Установка и запуск
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Требования
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js >= 16
+- Yarn >= 1.22
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Команды
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+# Установка зависимостей
+yarn install
+
+# Запуск dev-сервера
+yarn dev
+
+# Сборка для production
+yarn build
+
+# Предварительный просмотр production-сборки
+yarn preview
+
+# Линтинг кода
+yarn lint
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+После запуска `yarn dev` приложение будет доступно по адресу: <http://localhost:5173/>
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Структура проекта
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+src/
+├── api/
+│   └── mockApi.ts          # Mock API адаптер для данных
+├── components/
+│   ├── FilterPanel/        # Панель фильтрации
+│   │   ├── FilterPanel.tsx
+│   │   └── FilterPanel.module.scss
+│   ├── TableHeader/        # Заголовок таблицы с сортировкой
+│   │   ├── TableHeader.tsx
+│   │   └── TableHeader.module.scss
+│   └── TableRow/           # Строка таблицы
+│       ├── TableRow.tsx
+│       └── TableRow.module.scss
+├── types/
+│   └── index.ts            # TypeScript типы и интерфейсы
+├── utils/
+│   └── treeUtils.ts        # Утилиты для работы с деревом
+├── App.tsx                 # Главный компонент приложения
+├── App.module.scss         # Стили главного компонента
+├── index.css               # Глобальные стили и CSS-переменные
+└── main.tsx                # Точка входа приложения
 ```
+
+## Основные компоненты
+
+### App.tsx
+
+Главный компонент, который:
+
+- Загружает данные из Mock API
+- Управляет состоянием фильтров, сортировки и раскрытых строк
+- Координирует работу дочерних компонентов
+- Обрабатывает пользовательские действия
+
+### FilterPanel
+
+Панель фильтрации с кнопками:
+
+- Все
+- Активные
+- Неактивные
+
+### TableHeader
+
+Заголовок таблицы с интерактивными колонками для сортировки:
+
+- Email (сортируемая)
+- Баланс (сортируемая)
+
+### TableRow
+
+Строка таблицы с:
+
+- Отступом в зависимости от уровня вложенности
+- Кнопкой раскрытия/сворачивания для элементов с детьми
+- Цветовым индикатором статуса
+
+## Утилиты (treeUtils.ts)
+
+- `buildTree()` - построение дерева из плоского массива
+- `filterTree()` - фильтрация узлов дерева
+- `sortTree()` - рекурсивная сортировка узлов
+- `flattenTree()` - преобразование дерева в плоский список для отображения
+- `parseBalance()` - парсинг строки баланса в число
+- `hasChildren()` - проверка наличия дочерних элементов
+
+## Особенности реализации
+
+### Построение иерархии
+
+Приложение корректно обрабатывает неупорядоченные данные и строит древовидную структуру на основе полей `id` и `parentId`.
+
+### Фильтрация
+
+Фильтрация работает рекурсивно - родительские элементы показываются, если хотя бы один из их потомков соответствует фильтру.
+
+### Сортировка
+
+Сортировка применяется рекурсивно ко всем уровням дерева, сохраняя иерархическую структуру.
+
+### Производительность
+
+Использование `useMemo` и `useCallback` для оптимизации повторных вычислений и предотвращения лишних ре-рендеров.
+
+## Дизайн
+
+- Современная цветовая схема с градиентным фоном
+- Четкая типографика
+- Интерактивные элементы с плавными переходами
+- Hover-эффекты для улучшения UX
+- CSS-переменные для единообразия стилей
+
+## Требования к заданию
+
+- ✅ SPA на React 18+
+- ✅ Возможность раскрытия строк с дочерними элементами
+- ✅ Фильтрация по isActive
+- ✅ Сортировка по balance и email
+- ✅ Корректная обработка неупорядоченных данных
+- ✅ Без использования UI-китов
+- ✅ Работа в актуальной версии Chrome
+- ✅ Качественный, читаемый код
+
+## Тестирование
+
+Приложение протестировано на:
+
+- Загрузку и отображение данных
+- Фильтрацию по всем статусам
+- Сортировку по обоим полям в обе стороны
+- Раскрытие/сворачивание вложенных элементов
+- Корректное отображение иерархии
+- Обработку пустых состояний
+
+## Разработка
+
+Проект использует:
+
+- ESLint для линтинга
+- TypeScript strict mode для максимальной типобезопасности
+- SCSS modules для изоляции стилей
+
+## Лицензия
+
+MIT
