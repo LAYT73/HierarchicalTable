@@ -1,6 +1,7 @@
 import type {
   DataItem,
   TreeNode,
+  FlattenedNode,
   SortField,
   SortOrder,
   FilterState,
@@ -143,20 +144,21 @@ export const sortTree = (
 export const flattenTree = (
   nodes: TreeNode[],
   expandedIds: Set<number>,
-): TreeNode[] => {
-  const result: TreeNode[] = [];
+): FlattenedNode[] => {
+  const result: FlattenedNode[] = [];
 
-  const traverse = (nodeList: TreeNode[]) => {
-    nodeList.forEach((node) => {
-      result.push(node);
+  const traverse = (node: TreeNode, rootIndex: number) => {
+    result.push({ node, rootIndex });
 
-      if (expandedIds.has(node.id) && node.children.length > 0) {
-        traverse(node.children);
-      }
-    });
+    if (expandedIds.has(node.id) && node.children.length > 0) {
+      node.children.forEach((child) => traverse(child, rootIndex));
+    }
   };
 
-  traverse(nodes);
+  nodes.forEach((root, index) => {
+    traverse(root, index);
+  });
+
   return result;
 };
 

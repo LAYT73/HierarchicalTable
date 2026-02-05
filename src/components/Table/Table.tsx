@@ -11,7 +11,7 @@ import {
 } from "../../utils/treeUtils";
 import type {
   DataItem,
-  TreeNode,
+  FlattenedNode,
   FilterState,
   SortState,
   SortField,
@@ -146,11 +146,12 @@ export const Table = ({
         <table className={styles.table}>
           <TableHeader sortState={sortState} onSortChange={handleSortChange} />
           <tbody>
-            {flattenedNodes.map((node: TreeNode) => (
+            {flattenedNodes.map((item: FlattenedNode) => (
               <TableRow
-                key={node.id}
-                node={node}
-                isExpanded={expandedIds.has(node.id)}
+                key={item.node.id}
+                node={item.node}
+                isExpanded={expandedIds.has(item.node.id)}
+                isStriped={item.rootIndex % 2 === 1}
                 onToggle={handleToggle}
               />
             ))}

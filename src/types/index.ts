@@ -12,6 +12,11 @@ export interface TreeNode extends DataItem {
   level: number;
 }
 
+export interface FlattenedNode {
+  node: TreeNode;
+  rootIndex: number;
+}
+
 export type SortField = "balance" | "email";
 export type SortOrder = "asc" | "desc";
 

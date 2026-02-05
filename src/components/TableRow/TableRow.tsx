@@ -6,15 +6,24 @@ import styles from "./TableRow.module.scss";
 interface TableRowProps {
   node: TreeNode;
   isExpanded: boolean;
+  isStriped: boolean;
   onToggle: (id: number) => void;
 }
 
-export const TableRow = ({ node, isExpanded, onToggle }: TableRowProps) => {
+export const TableRow = ({
+  node,
+  isExpanded,
+  isStriped,
+  onToggle,
+}: TableRowProps) => {
   const nodeHasChildren = hasChildren(node);
   const indentSize = node.level * 2;
+  const rowClassName = `${styles.tableRow} ${
+    isStriped ? styles.stripedRow : ""
+  }`;
 
   return (
-    <tr className={styles.tableRow}>
+    <tr className={rowClassName}>
       <td className={styles.tableCell}>
         <div
           className={styles.cellContent}
