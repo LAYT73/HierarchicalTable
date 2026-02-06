@@ -32,7 +32,6 @@ SPA-приложение на React для отображения иерархи
 
 ```bash
 # Установка зависимостей
-
 yarn install
 # или
 npm install
@@ -73,9 +72,9 @@ src/
 │   ├── Table/              # Главный компонент таблицы с логикой
 │   │   ├── Table.tsx
 │   │   └── Table.module.scss
-│   ├── FilterPanel/        # Панель фильтрации
-│   │   ├── FilterPanel.tsx
-│   │   └── FilterPanel.module.scss
+│   ├── FilterDropdown/     # Dropdown для фильтрации
+│   │   ├── FilterDropdown.tsx
+│   │   └── FilterDropdown.module.scss
 │   ├── TableHeader/        # Заголовок таблицы с сортировкой
 │   │   ├── TableHeader.tsx
 │   │   └── TableHeader.module.scss
@@ -87,6 +86,8 @@ src/
 │       └── Pagination.module.scss
 ├── types/
 │   └── index.ts            # TypeScript типы и интерфейсы
+├── hooks/
+│   └── useTheme.ts         # Хук для темы приложения
 ├── utils/
 │   └── treeUtils.ts        # Утилиты для работы с деревом и пагинацией
 ├── App.tsx                 # Главный компонент приложения
@@ -104,6 +105,7 @@ src/
 - Загружает данные из Mock API
 - Отображает экран загрузки и состояние ошибки
 - Передаёт данные в компонент Table для дальнейшей обработки
+- Использование хука useTheme
 
 ### Header
 
@@ -119,9 +121,9 @@ Header компонент приложения, позволяет перекл�
 - Пагинацию корневых элементов
 - Координацию работы дочерних компонентов (FilterPanel, TableHeader, TableRow, Pagination)
 
-### FilterPanel
+### FilterDropdown
 
-Панель фильтрации с кнопками:
+Dropdown с фильтрами:
 
 - **Все** - отображение всех элементов
 - **Активные** - фильтр по isActive = true

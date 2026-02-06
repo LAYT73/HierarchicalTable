@@ -83,6 +83,35 @@ export const Table = ({
     });
   }, []);
 
+  // Обработчик для сжатия всех строк
+  const handleCollapseAll = useCallback(() => {
+    setExpandedIds(new Set());
+  }, []);
+
+  // Обработчик для раскрытия всех строк
+  const handleExpandAll = useCallback(() => {
+    // Собираем все ID всех узлов в пагинированных корнях
+    const allIds = new Set<number>();
+    const collectIds = (nodes: any[]) => {
+      nodes.forEach((node) => {
+        allIds.add(node.id);
+        if (node.children && node.children.length > 0) {
+          collectIds(node.children);
+        }
+      });
+    };
+    collectIds(paginationResult.roots);
+    setExpandedIds(allIds);
+  }, [paginationResult.roots]);
+
+  // Обработчик для очистки фильтров и сортировок
+  const handleClearFiltersAndSorts = useCallback(() => {
+    setFilter({ isActive: null });
+    setSortState({ field: null, order: "asc" });
+    setExpandedIds(new Set());
+    setCurrentPage(1);
+  }, []);
+
   // Обработчик изменения сортировки
   const handleSortChange = useCallback((field: SortField) => {
     setSortState((prev) => {
@@ -146,6 +175,9 @@ export const Table = ({
             onSortChange={handleSortChange}
             filter={filter}
             onFilterChange={handleFilterChange}
+            onCollapseAll={handleCollapseAll}
+            onExpandAll={handleExpandAll}
+            onClearFiltersAndSorts={handleClearFiltersAndSorts}
           />
           <tbody>
             {flattenedNodes.map((item: FlattenedNode) => (

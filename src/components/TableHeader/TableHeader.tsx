@@ -1,4 +1,10 @@
-import { ArrowUp, ArrowDown, ChevronsUpDown } from "lucide-react";
+import {
+  ArrowUp,
+  ArrowDown,
+  ChevronsUpDown,
+  RotateCcw,
+  ChevronsDownUp,
+} from "lucide-react";
 import { FilterDropdown } from "../FilterDropdown/FilterDropdown";
 import { type SortField, type SortState, type FilterState } from "../../types";
 import styles from "./TableHeader.module.scss";
@@ -8,6 +14,9 @@ interface TableHeaderProps {
   onSortChange: (field: SortField) => void;
   filter: FilterState;
   onFilterChange: (filter: FilterState) => void;
+  onCollapseAll?: () => void;
+  onExpandAll?: () => void;
+  onClearFiltersAndSorts?: () => void;
 }
 
 export const TableHeader = ({
@@ -15,6 +24,9 @@ export const TableHeader = ({
   onSortChange,
   filter,
   onFilterChange,
+  onCollapseAll,
+  onExpandAll,
+  onClearFiltersAndSorts,
 }: TableHeaderProps) => {
   const getSortIcon = (field: SortField) => {
     if (sortState.field !== field) {
@@ -26,6 +38,9 @@ export const TableHeader = ({
       <ArrowDown size={16} className={styles.sortIconActive} />
     );
   };
+
+  const hasFiltersOrSorts =
+    filter.isActive !== null || sortState.field !== null;
 
   return (
     <thead className={styles.tableHeader}>
@@ -60,6 +75,38 @@ export const TableHeader = ({
               Статус
               <FilterDropdown filter={filter} onFilterChange={onFilterChange} />
             </span>
+            <div className={styles.controlButtons}>
+              {onCollapseAll && (
+                <button
+                  className={styles.controlButton}
+                  onClick={onCollapseAll}
+                  title="Сжать все"
+                  aria-label="Collapse all"
+                >
+                  <ChevronsDownUp size={16} />
+                </button>
+              )}
+              {onExpandAll && (
+                <button
+                  className={styles.controlButton}
+                  onClick={onExpandAll}
+                  title="Раскрыть все"
+                  aria-label="Expand all"
+                >
+                  <ChevronsUpDown size={16} />
+                </button>
+              )}
+              {hasFiltersOrSorts && onClearFiltersAndSorts && (
+                <button
+                  className={styles.controlButton}
+                  onClick={onClearFiltersAndSorts}
+                  title="Очистить все фильтры и сортировки"
+                  aria-label="Clear filters and sorts"
+                >
+                  <RotateCcw size={16} />
+                </button>
+              )}
+            </div>
           </div>
         </th>
       </tr>
