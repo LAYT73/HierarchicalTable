@@ -1,13 +1,21 @@
 import { ArrowUp, ArrowDown, ChevronsUpDown } from "lucide-react";
-import { type SortField, type SortState } from "../../types";
+import { FilterDropdown } from "../FilterDropdown/FilterDropdown";
+import { type SortField, type SortState, type FilterState } from "../../types";
 import styles from "./TableHeader.module.scss";
 
 interface TableHeaderProps {
   sortState: SortState;
   onSortChange: (field: SortField) => void;
+  filter: FilterState;
+  onFilterChange: (filter: FilterState) => void;
 }
 
-export const TableHeader = ({ sortState, onSortChange }: TableHeaderProps) => {
+export const TableHeader = ({
+  sortState,
+  onSortChange,
+  filter,
+  onFilterChange,
+}: TableHeaderProps) => {
   const getSortIcon = (field: SortField) => {
     if (sortState.field !== field) {
       return <ChevronsUpDown size={16} className={styles.sortIconInactive} />;
@@ -22,7 +30,7 @@ export const TableHeader = ({ sortState, onSortChange }: TableHeaderProps) => {
   return (
     <thead className={styles.tableHeader}>
       <tr>
-        <th className={styles.headerCell}>
+        <th className={styles.headerCellId}>
           <div className={styles.headerContent}>ID</div>
         </th>
         <th className={styles.headerCell}>
@@ -46,8 +54,11 @@ export const TableHeader = ({ sortState, onSortChange }: TableHeaderProps) => {
             {getSortIcon("balance")}
           </button>
         </th>
-        <th className={styles.headerCell}>
-          <div className={styles.headerContent}>Статус</div>
+        <th className={styles.headerCellStatus}>
+          <div className={styles.statusHeader}>
+            <span className={styles.headerContent}>Статус</span>
+            <FilterDropdown filter={filter} onFilterChange={onFilterChange} />
+          </div>
         </th>
       </tr>
     </thead>

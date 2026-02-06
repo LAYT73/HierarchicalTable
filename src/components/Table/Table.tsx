@@ -1,5 +1,4 @@
 import { useState, useMemo, useCallback } from "react";
-import { FilterPanel } from "../FilterPanel/FilterPanel";
 import { TableHeader } from "../TableHeader/TableHeader";
 import { TableRow } from "../TableRow/TableRow";
 import { Pagination } from "../Pagination/Pagination";
@@ -127,7 +126,6 @@ export const Table = ({
   if (flattenedNodes.length === 0) {
     return (
       <>
-        <FilterPanel filter={filter} onFilterChange={handleFilterChange} />
         <div className={styles.emptyState}>
           <div className={styles.emptyIcon}>📭</div>
           <div className={styles.emptyText}>Нет данных для отображения</div>
@@ -141,11 +139,14 @@ export const Table = ({
 
   return (
     <>
-      <FilterPanel filter={filter} onFilterChange={handleFilterChange} />
-
       <div className={styles.tableWrapper}>
         <table className={styles.table}>
-          <TableHeader sortState={sortState} onSortChange={handleSortChange} />
+          <TableHeader
+            sortState={sortState}
+            onSortChange={handleSortChange}
+            filter={filter}
+            onFilterChange={handleFilterChange}
+          />
           <tbody>
             {flattenedNodes.map((item: FlattenedNode) => (
               <TableRow

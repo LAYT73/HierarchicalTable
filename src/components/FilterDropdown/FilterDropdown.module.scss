@@ -1,0 +1,135 @@
+.filterDropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.filterButton {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--color-surface);
+  border: 2px solid var(--color-border);
+  color: var(--color-text-primary);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  white-space: nowrap;
+
+  &:hover {
+    border-color: var(--color-primary);
+    background: var(--color-hover);
+  }
+
+  &.filtered {
+    border-color: var(--color-primary);
+    background: rgba(79, 70, 229, 0.1);
+    color: var(--color-primary);
+  }
+}
+
+.label {
+  opacity: 0.7;
+  font-weight: 400;
+
+  @media (max-width: 640px) {
+    display: none;
+  }
+}
+
+.value {
+  font-weight: 600;
+}
+
+.icon {
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+
+  &.iconOpen {
+    transform: rotate(180deg);
+  }
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 0.5rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 160px;
+  z-index: 1000;
+  overflow: hidden;
+  animation: slideDown 0.2s ease;
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.option {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: transparent;
+  color: var(--color-text-primary);
+  text-align: left;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--color-hover);
+  }
+
+  &.selected {
+    background: rgba(79, 70, 229, 0.15);
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+.clearButton {
+  position: absolute;
+  left: -2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: var(--color-danger);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(239, 68, 68, 0.1);
+  }
+
+  svg {
+    transition: transform 0.2s ease;
+  }
+
+  &:active svg {
+    transform: scale(1.1);
+  }
+}
