@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { ChevronDown, X } from "lucide-react";
+import { ChevronDown } from "lucide-react";
 import { type FilterState } from "../../types";
 import styles from "./FilterDropdown.module.scss";
 
@@ -39,43 +39,21 @@ export const FilterDropdown = ({
     setIsOpen(false);
   };
 
-  const handleClearFilter = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    onFilterChange({ isActive: null });
-  };
-
-  const getFilterLabel = () => {
-    if (filter.isActive === null) return "Все";
-    if (filter.isActive === true) return "Активные";
-    return "Неактивные";
-  };
-
   const isFiltered = filter.isActive !== null;
 
   return (
     <div className={styles.filterDropdown} ref={dropdownRef}>
       <button
-        className={`${styles.filterButton} ${isFiltered ? styles.filtered : ""}`}
+        className={`${styles.inlineButton} ${isFiltered ? styles.inlineFiltered : ""}`}
         onClick={() => setIsOpen(!isOpen)}
+        title="Фильтр по статусу"
       >
-        <span className={styles.label}>По статусу</span>
-        <span className={styles.value}>{getFilterLabel()}</span>
         <ChevronDown
-          size={18}
-          className={`${styles.icon} ${isOpen ? styles.iconOpen : ""}`}
+          size={16}
+          className={`${styles.inlineIcon} ${isOpen ? styles.inlineIconOpen : ""}`}
         />
+        {isFiltered && <span className={styles.filterIndicator} />}
       </button>
-
-      {isFiltered && (
-        <button
-          className={styles.clearButton}
-          onClick={handleClearFilter}
-          title="Сбросить фильтр"
-          aria-label="Clear filter"
-        >
-          <X size={16} />
-        </button>
-      )}
 
       {isOpen && (
         <div className={styles.dropdown}>

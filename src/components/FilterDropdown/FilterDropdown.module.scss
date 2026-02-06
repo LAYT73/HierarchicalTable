@@ -3,44 +3,46 @@
   display: inline-block;
 }
 
-.filterButton {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  background: var(--color-surface);
-  border: 2px solid var(--color-border);
-  color: var(--color-text-primary);
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
+.inlineButton {
+  background: none;
+  border: none;
+  max-width: fit-content;
+  padding: 0.25rem 0.25rem;
   cursor: pointer;
-  white-space: nowrap;
+  color: var(--color-text-primary);
+  transition: all 0.2s ease;
+  position: relative;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &:hover {
-    border-color: var(--color-primary);
-    background: var(--color-hover);
+    color: var(--color-primary);
+    background: rgba(79, 70, 229, 0.08);
   }
 
-  &.filtered {
-    border-color: var(--color-primary);
-    background: rgba(79, 70, 229, 0.1);
+  &.inlineFiltered {
     color: var(--color-primary);
   }
 }
 
-.label {
+.inlineIcon {
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
   opacity: 0.7;
-  font-weight: 400;
 
-  @media (max-width: 640px) {
-    display: none;
+  .inlineButton:hover & {
+    opacity: 1;
   }
-}
 
-.value {
-  font-weight: 600;
+  .inlineButton.inlineFiltered & {
+    opacity: 1;
+  }
+
+  &.inlineIconOpen {
+    transform: rotate(180deg);
+  }
 }
 
 .icon {
@@ -55,7 +57,7 @@
 .dropdown {
   position: absolute;
   top: 100%;
-  left: 0;
+  right: -0.5rem;
   margin-top: 0.5rem;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -102,34 +104,5 @@
 
   &:active {
     transform: scale(0.98);
-  }
-}
-
-.clearButton {
-  position: absolute;
-  left: -2rem;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
-  border: none;
-  color: var(--color-danger);
-  cursor: pointer;
-  padding: 0.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  transition: all 0.2s ease;
-
-  &:hover {
-    background: rgba(239, 68, 68, 0.1);
-  }
-
-  svg {
-    transition: transform 0.2s ease;
-  }
-
-  &:active svg {
-    transform: scale(1.1);
   }
 }

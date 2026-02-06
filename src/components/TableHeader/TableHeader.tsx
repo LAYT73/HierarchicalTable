@@ -56,8 +56,10 @@ export const TableHeader = ({
         </th>
         <th className={styles.headerCellStatus}>
           <div className={styles.statusHeader}>
-            <span className={styles.headerContent}>Статус</span>
-            <FilterDropdown filter={filter} onFilterChange={onFilterChange} />
+            <span className={styles.headerContent}>
+              Статус
+              <FilterDropdown filter={filter} onFilterChange={onFilterChange} />
+            </span>
           </div>
         </th>
       </tr>
