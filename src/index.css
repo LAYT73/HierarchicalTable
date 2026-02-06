@@ -5,7 +5,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  /* CSS Variables */
+  /* Light theme (default) */
   --color-primary: #4f46e5;
   --color-primary-hover: #4338ca;
   --color-bg: #ffffff;
@@ -17,11 +17,32 @@
   --color-success: #10b981;
   --color-danger: #ef4444;
   --color-warning: #f59e0b;
+  --color-shadow: rgba(0, 0, 0, 0.1);
+  --header-bg: linear-gradient(135deg, #0b1026 0%, #712eb4 100%);
+  --header-text: #ffffff;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  --color-primary: #6366f1;
+  --color-primary-hover: #818cf8;
+  --color-bg: #1f2937;
+  --color-surface: #111827;
+  --color-hover: #2d3748;
+  --color-border: #374151;
+  --color-text-primary: #f3f4f6;
+  --color-text-secondary: #d1d5db;
+  --color-success: #10b981;
+  --color-danger: #f87171;
+  --color-warning: #fbbf24;
+  --color-shadow: rgba(0, 0, 0, 0.2);
+  --header-bg: linear-gradient(135deg, #0f172a 0%, #4c1d95 100%);
+  --header-text: #f3f4f6;
 }
 
 * {

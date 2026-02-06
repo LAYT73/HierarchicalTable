@@ -19,7 +19,7 @@ export const TableRow = ({
   const nodeHasChildren = hasChildren(node);
   const indentSize = node.level * 2;
   const rowClassName = `${styles.tableRow} ${
-    isStriped ? styles.stripedRow : ""
+    isStriped ? styles.stripedRow : styles.regularRow
   }`;
 
   return (
