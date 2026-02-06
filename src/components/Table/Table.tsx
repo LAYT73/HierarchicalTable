@@ -29,6 +29,7 @@ export const Table = ({
   loading = false,
   itemsPerPage = 10,
 }: TableProps) => {
+  // Set используется для O(1) проверки раскрытых узлов
   const [expandedIds, setExpandedIds] = useState<Set<number>>(new Set());
   const [filter, setFilter] = useState<FilterState>({ isActive: null });
   const [sortState, setSortState] = useState<SortState>({

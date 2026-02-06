@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Table } from "./components/Table/Table";
-import { fetchData } from "./api/mockApi";
+import { fetchTableData } from "./api/mockApi";
 import type { DataItem } from "./types";
 import styles from "./App.module.scss";
 
@@ -13,7 +13,7 @@ function App() {
     const loadData = async () => {
       try {
         setLoading(true);
-        const result = await fetchData();
+        const result = await fetchTableData();
         setData(result);
       } catch (error) {
         console.error("Ошибка загрузки данных:", error);

@@ -247,7 +247,7 @@ const mockData: DataItem[] = [
  * Mock API adapter для получения данных
  * Имитирует асинхронный запрос к серверу
  */
-export const fetchData = (): Promise<DataItem[]> => {
+export const fetchTableData = (): Promise<DataItem[]> => {
   return new Promise((resolve) => {
     // Имитация задержки сети
     setTimeout(() => {
